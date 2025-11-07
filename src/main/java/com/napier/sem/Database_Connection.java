@@ -15,7 +15,7 @@ public class Database_Connection {
      * @throws ClassNotFoundException
      */
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
-        System.out.println("Connected to database");
+//        System.out.println("Connected to database");
         return DriverManager.getConnection(URL, User, Password);
     }
 
