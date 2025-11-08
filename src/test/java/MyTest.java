@@ -32,10 +32,9 @@ public class MyTest {
             fail("Query failed to execute: " + e.getMessage());
         }
     }
-}
 
-// Test: Query top 5 countries by population
-@Test
+    // Test: Query top 5 countries by population
+    @Test
     void testQueryTopCountries() {
         try {
             Database_Connection.query("SELECT Name, Population FROM country ORDER BY Population DESC LIMIT 5;");
@@ -44,7 +43,7 @@ public class MyTest {
         }
     }
 
-// Test: Query average population of countries in each continent
+    // Test: Query average population of countries in each continent
     @Test
     void testQueryAveragePopulationByContinent() {
         try {
@@ -53,3 +52,4 @@ public class MyTest {
             fail("Average population query failed: " + e.getMessage());
         }
     }
+}
