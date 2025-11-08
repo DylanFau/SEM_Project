@@ -33,3 +33,23 @@ public class MyTest {
         }
     }
 }
+
+// Test: Query top 5 countries by population
+@Test
+    void testQueryTopCountries() {
+        try {
+            Database_Connection.query("SELECT Name, Population FROM country ORDER BY Population DESC LIMIT 5;");
+        } catch (Exception e) {
+            fail("Top countries query failed: " + e.getMessage());
+        }
+    }
+
+// Test: Query average population of countries in each continent
+    @Test
+    void testQueryAveragePopulationByContinent() {
+        try {
+            Database_Connection.query("SELECT Continent, AVG(Population) AS Average_Population FROM country GROUP BY Continent;");
+        } catch (Exception e) {
+            fail("Average population query failed: " + e.getMessage());
+        }
+    }
