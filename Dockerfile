@@ -1,5 +1,5 @@
-# Pull latest openjdk image
-FROM openjdk:latest
+# Pull openjdk image
+FROM openjdk:26-ea-22-jdk-bookworm
 
 # Copies our primary working directory from our JAR to /tmp/
 COPY ./target/SEM-Project-1.0-SNAPSHOT-jar-with-dependencies.jar /tmp
