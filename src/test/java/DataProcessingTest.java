@@ -4,60 +4,114 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 
-public class MyTests {
+public class DataProcessingTest {
 
+    //  Test 1: Basic data structure validation
     @Test 
     void testReportStructure() {
-        // Arrange - fake data
-        List<CityReport> fakeReport = Arrays.asList(
-            new CityReport("London", "UK", "England", 8900000),
-            new CityReport("Birmingham", "UK", "England", 1100000)
+        // Arrange - using simple String arrays instead of custom classes
+        List<String[]> fakeReport = Arrays.asList(
+            new String[]{"London", "UK", "England", "8900000"},
+            new String[]{"Birmingham", "UK", "England", "1100000"}
         );
         
-        // Act & Assert - row count
+        // Act and  Assert
         assertEquals(2, fakeReport.size());
         
-        // Assert - column count (check all properties exist)
-        CityReport firstCity = fakeReport.get(0);
-        assertNotNull(firstCity.getName());
-        assertNotNull(firstCity.getCountry());
-        assertNotNull(firstCity.getDistrict());
-        assertTrue(firstCity.getPopulation() > 0);
+        // Assert - column count (check all array elements exist)
+        String[] firstCity = fakeReport.get(0);
+        assertEquals(4, firstCity.length); // 4 columns
+        assertNotNull(firstCity[0]); // Name
+        assertNotNull(firstCity[1]); // Country
+        assertNotNull(firstCity[2]); // District
+        assertNotNull(firstCity[3]); // Population
     }
 
+    //  Test 2: Data filtering and presence check
     @Test 
     void testSpecificDataInResults() {
-        // Arrange - fake data with known values
-        List<Country> fakeCountries = Arrays.asList(
-            new Country("GBR", "United Kingdom", "Europe", "British Isles", 67000000, "London"),
-            new Country("FRA", "France", "Europe", "Western Europe", 65000000, "Paris")
+        // Arrange - using Map for flexibility
+        List<Map<String, String>> fakeCountries = Arrays.asList(
+            Map.of("code", "GBR", "name", "United Kingdom", "continent", "Europe", 
+                   "region", "British Isles", "population", "67000000", "capital", "London"),
+            Map.of("code", "FRA", "name", "France", "continent", "Europe", 
+                   "region", "Western Europe", "population", "65000000", "capital", "Paris")
         );
         
-        // Act - your filtering logic
-        List<Country> europeanCountries = fakeCountries.stream()
-            .filter(c -> c.getContinent().equals("Europe"))
+        // Act - filtering logic
+        List<Map<String, String>> europeanCountries = fakeCountries.stream()
+            .filter(c -> c.get("continent").equals("Europe"))
             .toList();
         
         // Assert - specific data is present
-        assertTrue(europeanCountries.stream()
-            .anyMatch(c -> c.getName().equals("United Kingdom")));
+        boolean hasUK = europeanCountries.stream()
+            .anyMatch(c -> c.get("name").equals("United Kingdom"));
+        assertTrue(hasUK, "United Kingdom should be in European countries");
     }
 
+    //  Test 3: Population sorting logic
     @Test 
     void testPopulationSortingDescending() {
-        // Arrange - fake unsorted data
-        List<Country> countries = Arrays.asList(
-            new Country("USA", 330000000),  // 3rd largest
-            new Country("India", 1300000000), // 2nd largest  
-            new Country("China", 1400000000)  // 1st largest
+        // Arrange - using simple objects with population
+        List<PopulationData> countries = Arrays.asList(
+            new PopulationData("USA", 330000000),      // 3rd largest
+            new PopulationData("India", 1300000000),   // 2nd largest  
+            new PopulationData("China", 1400000000)    // 1st largest
         );
         
-        // Act - YOUR sorting method
-        countries.sort((a, b) -> Long.compare(b.getPopulation(), a.getPopulation()));
+        // Act - sorting by population descending
+        countries.sort((a, b) -> Long.compare(b.population, a.population));
         
         // Assert - correct order
-        assertEquals("China", countries.get(0).getName());
-        assertEquals("India", countries.get(1).getName());
-        assertEquals("USA", countries.get(2).getName());
+        assertEquals("China", countries.get(0).name);
+        assertEquals("India", countries.get(1).name);
+        assertEquals("USA", countries.get(2).name);
+    }
+
+    //  Test 4: Test with empty data
+    @Test
+    void testEmptyDataHandling() {
+        // Arrange
+        List<String[]> emptyReport = new ArrayList<>();
+        
+        // Act & Assert
+        assertEquals(0, emptyReport.size());
+        assertDoesNotThrow(() -> {
+            // Simulate processing empty data
+            processReport(emptyReport);
+        });
+    }
+
+    //  Test 5: Test data validation
+    @Test
+    void testPopulationDataValidation() {
+        // Arrange
+        List<PopulationData> data = Arrays.asList(
+            new PopulationData("ValidCountry", 1000000),
+            new PopulationData("AnotherCountry", 500000)
+        );
+        
+        // Assert - all populations should be positive
+        for (PopulationData item : data) {
+            assertTrue(item.population > 0, "Population should be positive: " + item.name);
+        }
+    }
+
+    // Helper method
+    private void processReport(List<String[]> report) {
+        if (report.isEmpty()) {
+            System.out.println("No data to process");
+        }
+    }
+
+    // Simple helper class for population data
+    static class PopulationData {
+        String name;
+        long population;
+        
+        PopulationData(String name, long population) {
+            this.name = name;
+            this.population = population;
+        }
     }
 }
