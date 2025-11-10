@@ -1,6 +1,6 @@
 
 services:
-  db:
+  mysql:
     image: mysql:latest
 
     environment:
@@ -17,4 +17,4 @@ services:
     build: .
     #    Stops the java container running ahead without the database running
     depends_on:
-      - db
+      - mysql
