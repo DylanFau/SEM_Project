@@ -58,8 +58,6 @@ public class Test {
         }
     }
 
-    @Nested
-    class DataProcessingTest {
         //  Test 1: Basic data structure validation
         @org.junit.jupiter.api.Test
         void testReportStructure() {
@@ -169,5 +167,4 @@ public class Test {
             }
         }
     }
-}
 
