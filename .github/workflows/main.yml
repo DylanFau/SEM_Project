@@ -23,3 +23,5 @@ jobs:
 #        Will test data handling
       - name: Unit Tests
         run: mvn -Dtest=DataProcessingTest test
+      - name: Integrated Tests
+        run: mvn -Dtest=Test test
