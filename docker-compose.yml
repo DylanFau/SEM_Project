@@ -1,11 +1,5 @@
 
 services:
-  java:
-    build: .
-#    Stops the java container running ahead without the database running
-    depends_on:
-      - db
-
   db:
     image: mysql:latest
 
@@ -13,9 +7,22 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: world
 
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
     ports:
       - "3306:3306"
 
 #   Shifts the world.sql file into the container directory. It then gets auto exectuted on load, seeding the db
     volumes:
       - ./world.sql:/docker-entrypoint-initdb.d/world.sql
+
+  java:
+    build: .
+    #    Stops the java container running ahead without the database running
+    depends_on:
+      db:
+        condition: service_healthy
