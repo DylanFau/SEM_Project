@@ -1,6 +1,5 @@
 package com.napier.sem;
 
-import org.junit.jupiter.api.Nested;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class Test {
+public class IntegrationTests {
 
     // Simple test just to confirm JUnit is working
     @org.junit.jupiter.api.Test
