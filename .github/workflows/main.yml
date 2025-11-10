@@ -27,10 +27,10 @@ jobs:
 
       - name: Seed Database
         run:
-          mysql -h mysql -u root -proot world < world.sql
+          mysql -u root -proot world < world.sql
       - name: Test Database
         run:
-          mysql -h mysql -u root -proot || SELECT * FROM city LIMIT 1
+          mysql -u root -proot || SELECT * FROM city LIMIT 1
 
       - name: Package and run with docker compose
         run: |
