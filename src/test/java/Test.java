@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import org.junit.jupiter.api.Nested;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -57,8 +58,8 @@ public class Test {
         }
     }
 
-    public static class DataProcessingTest {
-
+    @Nested
+    class DataProcessingTest {
         //  Test 1: Basic data structure validation
         @org.junit.jupiter.api.Test
         void testReportStructure() {
