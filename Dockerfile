@@ -2,7 +2,7 @@
 FROM openjdk:26-ea-22-jdk-bookworm
 
 # Copies our primary working directory from our JAR to /tmp/
-COPY ./target/devops.jar /tmp
+COPY ./target/devops-jar-with-dependencies.jar /tmp/devops.jar
 
 # Sets our working directory for this container as /tmp/ where our project is located
 WORKDIR /tmp

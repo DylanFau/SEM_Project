@@ -23,13 +23,12 @@
                     <finalName>devops</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>com.napier.devops.App</mainClass>
+                            <mainClass>com.napier.sem.App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <appendassemblyId>false</appendassemblyId>
                 </configuration>
                 <executions>
                     <execution>
