@@ -1,10 +1,8 @@
-package com.napier.sem;
-
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 
-public class DataProcessingTest {
+public class UnitTests {
 
     //  Test 1: Basic data structure validation
     @Test 
