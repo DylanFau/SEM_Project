@@ -29,7 +29,7 @@ public class App {
     /**
      * Report to show all countries in the world in descending order
      * Can give param num to show a limited amount
-     * @param num
+     * @param num can be used to set a return amount
      * @throws SQLException
      * @throws ClassNotFoundException
      */
@@ -48,8 +48,8 @@ public class App {
     }
 
     /**
-     * Report to show all cities in the world, in descending order -> NOT DONE
-     * @param num
+     * Report to show all cities in the world, in descending order
+     * @param num can be used to set a return amount
      * @throws SQLException
      * @throws ClassNotFoundException
      */
