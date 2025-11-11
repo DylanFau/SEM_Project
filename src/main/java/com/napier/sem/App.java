@@ -5,7 +5,7 @@ import java.sql.*;
 public class App {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 //        Database_Connection.query("SELECT * FROM city LIMIT 5"); // Use this boilerplate to run your queries.
-        checkDatabaseColumns();
+//        checkDatabaseColumns();
     }
 
     public static void checkDatabaseColumns() throws SQLException, ClassNotFoundException {
