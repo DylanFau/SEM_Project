@@ -135,6 +135,34 @@ public class IntegrationTests {
         }
     }
 
+    // Test a simple string comparison
+    @Test
+    void stringEqualityTest() {
+        String greeting = "Hello World";
+        assertEquals("Hello World", greeting);
+    }
+
+    // Test that a list contains expected elements
+    @Test
+    void listContainsItemTest() {
+        var items = java.util.List.of("Apple", "Banana", "Cherry");
+        assertTrue(items.contains("Banana"));
+    }
+
+    // Test a simple math operation
+    @Test
+    void mathAdditionTest() {
+        int result = 2 + 3;
+        assertEquals(5, result);
+    }
+
+    // Test that an object is not null
+    @Test
+    void objectNotNullTest() {
+        Object obj = new Object();
+        assertNotNull(obj);
+    }
+
     // Helper method
     private void processReport(List<String[]> report) {
         if (report.isEmpty()) {
