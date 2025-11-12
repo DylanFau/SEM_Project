@@ -72,6 +72,22 @@ public class App {
 //            Region.
 //            Population.
 //            Capital.
+ // All countries by population
+        Database_Connection.query("SELECT Name AS Country, Population
+FROM country
+ORDER BY Population DESC;");
+
+        //Countries by continent
+        Database_Connection.query("SELECT Name AS Country, Continent, Population
+FROM country
+WHERE Continent = 'Asia'
+ORDER BY Population DESC;");
+
+        //Population report for a country
+        Database_Connection.query("SELECT Name AS Country, Population
+FROM country
+WHERE Name = 'Pakistan';");
+
 
 //    City Report
 //
