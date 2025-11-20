@@ -11,11 +11,14 @@ public class App {
         System.out.println("(1) List all countries in the world");
         System.out.println("(2) List all cities in the world");
         System.out.println("(4) Dev -> Check database columns");
+
         System.out.print("\nPlease choose an option: ");
 
         int choice = input.nextInt();
 
-
+        /*
+          Switch case to send user choice to where it needs to be
+         */
         switch (choice) {
             case 1:
             {
@@ -51,10 +54,6 @@ public class App {
                 main(args);
             }
         }
-
-//        checkDatabaseColumns();
-//        allCountriesInTheWorld(5);
-//        allCitiesInTheWorld();
     }
 
 
