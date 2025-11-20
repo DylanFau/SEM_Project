@@ -1,9 +1,57 @@
 package com.napier.sem;
 
 import java.sql.*;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Welcome to a database of the world\n");
+
+        System.out.println("(1) List all countries in the world");
+        System.out.println("(2) List all cities in the world");
+        System.out.println("(4) Dev -> Check database columns");
+        System.out.print("\nPlease choose an option: ");
+
+        int choice = input.nextInt();
+
+
+        switch (choice) {
+            case 1:
+            {
+                System.out.print("Max elements returned (0 for all): ");
+                int maxRet = input.nextInt();
+
+                if(maxRet == 0) {
+                    allCountriesInTheWorld(0);
+                } else {
+                    allCountriesInTheWorld(maxRet);
+                }
+                break;
+            }
+            case 2:
+            {
+                System.out.print("Max elements returned (0 for all): ");
+                int maxRet = input.nextInt();
+
+                if(maxRet == 0) {
+                    allCitiesInTheWorld(0);
+                } else {
+                    allCitiesInTheWorld(maxRet);
+                }
+                break;
+            }
+            case 4: {
+                checkDatabaseColumns();
+                break;
+            }
+            default:
+            {
+                System.out.println("Invalid choice, try again..");
+                main(args);
+            }
+        }
+
 //        checkDatabaseColumns();
 //        allCountriesInTheWorld(5);
 //        allCitiesInTheWorld();
@@ -34,7 +82,8 @@ public class App {
      * @throws ClassNotFoundException
      */
     public static void allCountriesInTheWorld(int... num) throws SQLException, ClassNotFoundException {
-        if (num.length == 0) {
+        if (num[0] == 0) {
+            System.out.println("Entered num is " + num);
             System.out.println("Retrieving all countries in the world");
             Database_Connection.query(
                     "SELECT Name, Continent, Region, Population, Capital FROM country GROUP BY Code ORDER BY Population DESC"
@@ -63,45 +112,17 @@ public class App {
     }
 }
 
-
-//    Country Report
-//    A country report requires the following columns:
-//    Code.
-//            Name.
-//            Continent.
-//            Region.
-//            Population.
-//            Capital.
- // All countries by population
-        Database_Connection.query("SELECT Name AS Country, Population
-FROM country
-ORDER BY Population DESC;");
-
-        //Countries by continent
-        Database_Connection.query("SELECT Name AS Country, Continent, Population
-FROM country
-WHERE Continent = 'Asia'
-ORDER BY Population DESC;");
-
-        //Population report for a country
-        Database_Connection.query("SELECT Name AS Country, Population
-FROM country
-WHERE Name = 'Pakistan';");
-
-
-//    City Report
+//        Database_Connection.query("SELECT Name AS Country, Population
+//                                  FROM country
+//ORDER BY Population DESC;");
 //
-//    A city report requires the following columns:
+//        //Countries by continent
+//        Database_Connection.query("SELECT Name AS Country, Continent, Population
+//                                  FROM country
+//WHERE Continent = 'Asia'
+//                                          ORDER BY Population DESC;");
 //
-//    Name.
-//            Country.
-//            District.
-//            Population.
-//
-//    Capital City Report
-//
-//    A capital city report requires the following columns:
-//
-//    Name.
-//            Country.
-//            Population.
+//        //Population report for a country
+//        Database_Connection.query("SELECT Name AS Country, Population
+//                                  FROM country
+//WHERE Name = 'Pakistan';");
