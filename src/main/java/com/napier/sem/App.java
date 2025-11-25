@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -46,51 +47,63 @@ public class App {
         System.out.println("(24) Population by continent (urban vs rural)");
         System.out.println("(25) Population by region (urban vs rural)");
         System.out.println("(26) Population by country (urban vs rural)");
+        System.out.println("(27) Get total world population");
+        System.out.println("(28) Get total continent population");
+        System.out.println("(29) Get total region population");
+        System.out.println("(30) Get total country population");
+        System.out.println("(31) Get total district population");
+        System.out.println("(32) Get total city population");
         
         System.out.println("\nTOOLS:");
-        System.out.println("(27) Check database structure");
+        System.out.println("(33) Check database structure");
         System.out.println("(0) Exit");
 
         System.out.print("\nPlease choose an option: ");
         int choice = input.nextInt();
-
         
         switch (choice) {
             // Country reports
-            case 1: allCountriesInTheWorld(input.nextInt()); break;
-            case 2: input.nextLine(); allCountriesInContinent(input.nextLine()); break;
-            case 3: input.nextLine(); allCountriesInRegion(input.nextLine()); break;
-            case 4: topNCountriesWorld(input.nextInt()); break;
-            case 5: input.nextLine(); topNCountriesInContinent(input.nextLine(), input.nextInt()); break;
-            case 6: input.nextLine(); topNCountriesInRegion(input.nextLine(), input.nextInt()); break;
+            case 1: allCountriesInTheWorld(); break;
+            case 2: System.out.print("\nEnter a continent: "); input.nextLine(); allCountriesInContinent(input.nextLine()); break;
+            case 3: System.out.print("\nEnter a region: "); input.nextLine(); allCountriesInRegion(input.nextLine()); break;
+            case 4: System.out.print("\nEnter top amount: "); topNCountriesWorld(input.nextInt()); break;
+            case 5: System.out.print("\nEnter a continent then max to return: "); input.nextLine(); topNCountriesInContinent(input.nextLine(), input.nextInt()); break;
+            case 6: System.out.print("\nEnter max to return: "); input.nextLine(); topNCountriesInRegion(input.nextLine(), input.nextInt()); break;
                 
             // City reports
-            case 7: allCitiesInTheWorld(input.nextInt()); break;
-            case 8: input.nextLine(); allCitiesInContinent(input.nextLine()); break;
-            case 9: input.nextLine(); allCitiesInCountry(input.nextLine()); break;
-            case 10: topNCitiesWorld(input.nextInt()); break;
-            case 11: input.nextLine(); topNCitiesInContinent(input.nextLine(), input.nextInt()); break;
-            case 12: input.nextLine(); topNCitiesInCountry(input.nextLine(), input.nextInt()); break;
+            case 7: allCitiesInTheWorld(); break;
+            case 8: System.out.print("\nEnter a continent: "); input.nextLine(); allCitiesInContinent(input.nextLine()); break;
+            case 9: System.out.print("\nEnter a country: "); input.nextLine(); allCitiesInCountry(input.nextLine()); break;
+            case 10: System.out.print("\nEnter a max to return: "); input.nextLine(); topNCitiesWorld(input.nextInt()); break;
+            case 11: System.out.print("\nEnter a continent and then max to return: "); input.nextLine(); topNCitiesInContinent(input.nextLine(), input.nextInt()); break;
+            case 12: System.out.print("\nEnter a country and then max to return: "); input.nextLine(); topNCitiesInCountry(input.nextLine(), input.nextInt()); break;
                 
             // Capital city reports
-            case 13: input.nextLine(); citiesInRegion(input.nextLine()); break;
-            case 14: input.nextLine(); citiesInDistrict(input.nextLine()); break;
-            case 15: input.nextLine(); topNCitiesInRegion(input.nextLine(), input.nextInt()); break;
-            case 16: input.nextLine(); topNCitiesInCountryCode(input.nextLine(), input.nextInt()); break;
-            case 17: input.nextLine(); topNCitiesInDistrict(input.nextLine(), input.nextInt()); break;
+            case 13: System.out.print("\nEnter a region: "); input.nextLine(); citiesInRegion(input.nextLine()); break;
+            case 14: System.out.print("\nEnter a district: "); input.nextLine(); citiesInDistrict(input.nextLine()); break;
+            case 15: System.out.print("\nEnter a Region then max to return: "); input.nextLine(); topNCitiesInRegion(input.nextLine(), input.nextInt()); break;
+            case 16: System.out.print("\nEnter a country then max to return: "); input.nextLine(); topNCitiesInCountryCode(input.nextLine(), input.nextInt()); break;
+            case 17: System.out.print("\nEnter a district then max to return: "); input.nextLine(); topNCitiesInDistrict(input.nextLine(), input.nextInt()); break;
             case 18: allCapitalCities(); break;
-            case 19: input.nextLine(); capitalsInContinent(input.nextLine()); break;
-            case 20: input.nextLine(); capitalsInRegion(input.nextLine()); break;
-            case 21: topNCapitalsWorld(input.nextInt()); break;
-            case 22: input.nextLine(); topNCapitalsInContinent(input.nextLine(), input.nextInt()); break;
-            case 23: input.nextLine(); topNCapitalsInRegion(input.nextLine(), input.nextInt()); break;
+            case 19: System.out.print("\nEnter a continent: "); input.nextLine(); capitalsInContinent(input.nextLine()); break;
+            case 20: System.out.print("\nEnter a region: "); input.nextLine(); capitalsInRegion(input.nextLine()); break;
+            case 21: System.out.print("\nEnter max to return: "); topNCapitalsWorld(input.nextInt()); break;
+            case 22: System.out.print("\nEnter a continent and then max to return: "); input.nextLine(); topNCapitalsInContinent(input.nextLine(), input.nextInt()); break;
+            case 23: System.out.print("\nEnter a region and then max to return: "); input.nextLine(); topNCapitalsInRegion(input.nextLine(), input.nextInt()); break;
                 
             // Population analysis
             case 24: populationByContinent(); break;
             case 25: populationByRegion(); break;
             case 26: populationByCountry(); break;
-                
-            case 27: checkDatabaseColumns(); break;
+
+            case 27: getWorldPopulation(); break;
+            case 28: System.out.print("\nEnter a continent: "); input.nextLine(); getPopulationofContinent(input.nextLine()); break;
+            case 29: System.out.print("\nEnter a region: "); input.nextLine(); getPopulationofRegion(input.nextLine()); break;
+            case 30: System.out.print("\nEnter a country: "); input.nextLine(); getPopulationofCountry(input.nextLine()); break;
+            case 31: System.out.print("\nEnter a district: "); input.nextLine(); getPopulationofDistrict(input.nextLine()); break;
+            case 32: System.out.print("\nEnter a city: "); input.nextLine(); getPopulationofCity(input.nextLine()); break;
+
+            case 33: checkDatabaseColumns(); break;
             case 0: System.out.println("Thank you for using Population Reports!"); return;
             default: System.out.println("Invalid choice, try again..");
         }
@@ -103,11 +116,10 @@ public class App {
 
     // COUNTRY REPORTS 
 
-    public static void allCountriesInTheWorld(int num) throws SQLException, ClassNotFoundException {
+    public static void allCountriesInTheWorld() throws SQLException, ClassNotFoundException {
         String query = "SELECT Code, Name, Continent, Region, Population, Capital " +
                       "FROM country ORDER BY Population DESC";
-        if (num > 0) query += " LIMIT " + num;
-        System.out.println("All Countries in World (Top " + (num > 0 ? num : "All") + ")");
+        System.out.println("All Countries in World");
         Database_Connection.query(query);
     }
 
@@ -154,12 +166,11 @@ public class App {
     // CITY REPORTS
 
     /** Get all cities worldwide sorted by population */
-    public static void allCitiesInTheWorld(int num) throws SQLException, ClassNotFoundException {
+    public static void allCitiesInTheWorld() throws SQLException, ClassNotFoundException {
         String query = "SELECT city.Name, country.Name as Country, city.District, city.Population " +
                       "FROM city JOIN country ON city.CountryCode = country.Code " +
                       "ORDER BY city.Population DESC";
-        if (num > 0) query += " LIMIT " + num;
-        System.out.println("All Cities in World (Top " + (num > 0 ? num : "All") + ")");
+        System.out.println("All Cities in World");
         Database_Connection.query(query);
     }
 
@@ -337,6 +348,42 @@ public class App {
                        "(country.Population - SUM(city.Population)) AS NonCityPopulation " +
                        "FROM country LEFT JOIN city ON country.Code = city.CountryCode GROUP BY country.Code";
         System.out.println("Population by country (urban vs rural)");
+        Database_Connection.query(query);
+    }
+
+    public static void getWorldPopulation() throws SQLException, ClassNotFoundException {
+        String query = "SELECT SUM(Population) AS WorldPopulation FROM country";
+        Database_Connection.query(query);
+        System.out.print("is the total population of the world");
+    }
+
+    public static void getPopulationofContinent(String cont) throws SQLException, ClassNotFoundException {
+        String query = "SELECT SUM(Population) AS Population FROM country " +
+                        "WHERE Continent = '" + cont + "'";
+        Database_Connection.query(query);
+    }
+
+    public static void getPopulationofRegion(String Region) throws SQLException, ClassNotFoundException {
+        String query = "SELECT SUM(Population) AS Population FROM country " +
+                "WHERE Region = '" + Region + "'";
+        Database_Connection.query(query);
+    }
+
+    public static void getPopulationofCountry(String Country) throws SQLException, ClassNotFoundException {
+        String query = "SELECT SUM(Population) AS Population FROM country " +
+                "WHERE Name = '" + Country + "'";
+        Database_Connection.query(query);
+    }
+
+    public static void getPopulationofDistrict(String District) throws SQLException, ClassNotFoundException {
+        String query = "SELECT SUM(Population) AS Population FROM country " +
+                "WHERE District = '" + District + "'";
+        Database_Connection.query(query);
+    }
+
+    public static void getPopulationofCity(String City) throws SQLException, ClassNotFoundException {
+        String query = "SELECT SUM(Population) AS Population " +
+                "FROM city WHERE Name = '" + City + "'";
         Database_Connection.query(query);
     }
 
